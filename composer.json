@@ -1,0 +1,24 @@
+{
+    "name": "lazychaser/data-import-tools",
+    "description": "Tools for importing data from different data sources",
+    "type": "library",
+    "require": {
+        "illuminate/support": "~5.2",
+        "illuminate/database": "~5.2",
+        "illuminate/validation": "~5.2",
+        "monolog/monolog": "^1.23"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexander Kalnoy",
+            "email": "lazychaser@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Lazychaser\\DataImportTools\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
