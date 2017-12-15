@@ -5,7 +5,6 @@ namespace Lazychaser\DataImportTools;
 use Illuminate\Support\Collection;
 use Lazychaser\DataImportTools\Contracts\DataSource as DataSourceContract;
 use Lazychaser\DataImportTools\Contracts\Importer as ImporterContract;
-use Lazychaser\DataImportTools\Contracts\ModelProvider;
 use Lazychaser\DataImportTools\Events\ModelWasImported;
 use Lazychaser\DataImportTools\Events\BatchWasImported;
 use Lazychaser\DataImportTools\Events\BatchWillBeImported;
@@ -147,6 +146,10 @@ class ImportService
         if ($this->log) {
             return;
         }
+
+        $this->log = app('log')->getMonolog();
+
+        return;
 
         $this->log = new Logger('importer', [ new NullHandler() ]);
     }

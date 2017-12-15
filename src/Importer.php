@@ -230,6 +230,8 @@ class Importer implements ImporterContact
         $items = $this->normalizeMany($items);
 
         $this->preloadModels($items)->preloadAttributes($items);
+
+        return $items;
     }
 
     /**

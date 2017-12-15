@@ -189,7 +189,7 @@ abstract class NestedSetProvider extends BaseProvider
         if ($columns == [ '*' ]) return $columns;
 
         /** @var Model $model */
-        $model = $this->newModel();
+        $model = $this->newEmptyModel();
 
         return array_unique(array_merge($columns, [
 

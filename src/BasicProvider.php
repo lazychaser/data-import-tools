@@ -31,7 +31,7 @@ class BasicProvider extends BaseModelProvider
     /**
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function newModel()
+    public function newEmptyModel()
     {
         return new $this->className;
     }

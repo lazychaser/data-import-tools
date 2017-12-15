@@ -31,6 +31,18 @@ abstract class BaseRelation extends AbstractAttribute
     }
 
     /**
+     * @param $id
+     * @param $provider
+     * @param null $attribute
+     *
+     * @return static
+     */
+    public static function make($id, $provider, $attribute = null)
+    {
+        return new static($id, $provider, $attribute);
+    }
+
+    /**
      * @return \Lazychaser\DataImportTools\BaseProvider
      */
     public function getProvider()

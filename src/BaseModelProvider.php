@@ -109,7 +109,7 @@ abstract class BaseModelProvider extends BaseProvider
         }
 
         return array_unique(array_merge($columns, [
-            $this->primaryKey(), $this->newModel()->getKeyName()
+            $this->primaryKey(), $this->newEmptyModel()->getKeyName()
         ]));
     }
 

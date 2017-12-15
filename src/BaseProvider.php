@@ -50,7 +50,7 @@ abstract class BaseProvider
     /**
      * @return \Illuminate\Database\Eloquent\Model
      */
-    abstract public function newModel();
+    abstract public function newEmptyModel();
 
     /**
      * Preload models from database by keys. This is needed when importing
@@ -101,17 +101,7 @@ abstract class BaseProvider
      */
     protected function create($key)
     {
-        $model = $this->newModel();
-
-        if ($this->originalKeyAttr) {
-            $model->setAttribute($this->originalKeyAttr, $key);
-        }
-
-        if ($this->slugKey) {
-            $key = str_slug($key);
-        }
-
-        $model->setAttribute($this->primaryKey(), $key);
+        $model = $this->newModel($key);
 
         $model->save();
 
@@ -123,7 +113,7 @@ abstract class BaseProvider
      */
     protected function newQuery()
     {
-        return $this->newModel()->newQuery();
+        return $this->newEmptyModel()->newQuery();
     }
 
     /**
@@ -178,6 +168,27 @@ abstract class BaseProvider
         $this->slugKey = $value;
 
         return $this;
+    }
+
+    /**
+     * @param $key
+     *
+     * @return Model
+     */
+    protected function newModel($key)
+    {
+        $model = $this->newEmptyModel();
+
+        if ($this->originalKeyAttr) {
+            $model->setAttribute($this->originalKeyAttr, $key);
+        }
+
+        if ($this->slugKey) {
+            $key = str_slug($key);
+        }
+
+        $model->setAttribute($this->primaryKey(), $key);
+        return $model;
     }
 
 }

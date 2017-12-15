@@ -85,8 +85,6 @@ class Scalar extends BasicAttribute
 
         $attribute = isset($arguments[1]) ? $arguments[1] : null;
 
-        $model = new self($arguments[0], $type, $attribute);
-
-        return $model->$type();
+        return new self($arguments[0], $type, $attribute);
     }
 }

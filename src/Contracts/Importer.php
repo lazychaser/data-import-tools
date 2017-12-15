@@ -19,6 +19,8 @@ interface Importer
      * Indicate that batch import has started.
      *
      * @param \Illuminate\Support\Collection $items
+     *
+     * @return \Illuminate\Support\Collection
      */
     public function startBatch(Collection $items);
 

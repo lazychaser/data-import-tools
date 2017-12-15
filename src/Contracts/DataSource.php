@@ -14,7 +14,7 @@ interface DataSource {
     /**
      * @param int $limit
      *
-     * @return Collection
+     * @return Collection|false
      */
     public function read($limit = 100);
 
