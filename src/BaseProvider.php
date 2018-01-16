@@ -38,6 +38,11 @@ abstract class BaseProvider
     protected $originalKeyAttr;
 
     /**
+     * @var array
+     */
+    public $defaultAttributes;
+
+    /**
      * BaseProvider constructor.
      *
      * @param array $columns
@@ -170,6 +175,13 @@ abstract class BaseProvider
         return $this;
     }
 
+    public function setDefaultAttributes(array $value)
+    {
+        $this->defaultAttributes = $value;
+
+        return $this;
+    }
+
     /**
      * @param $key
      *
@@ -178,6 +190,10 @@ abstract class BaseProvider
     protected function newModel($key)
     {
         $model = $this->newEmptyModel();
+
+        if ($this->defaultAttributes) {
+            $model->setRawAttributes($this->defaultAttributes);
+        }
 
         if ($this->originalKeyAttr) {
             $model->setAttribute($this->originalKeyAttr, $key);
@@ -188,6 +204,7 @@ abstract class BaseProvider
         }
 
         $model->setAttribute($this->primaryKey(), $key);
+
         return $model;
     }
 

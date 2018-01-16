@@ -10,7 +10,7 @@ class BasicAttribute extends AbstractAttribute
     /**
      * @var mixed
      */
-    public $default;
+    public $defaultValue;
 
     /**
      * Do some stuff before items are imported.
@@ -45,7 +45,7 @@ class BasicAttribute extends AbstractAttribute
      */
     public function defaultValue($value)
     {
-        $this->default = $value;
+        $this->defaultValue = $value;
 
         return $this;
     }
@@ -59,6 +59,10 @@ class BasicAttribute extends AbstractAttribute
      */
     public function setValueOnModel($value, Model $model)
     {
-        $model->setAttribute($this->attribute, $value ?: $this->default);
+        if ($value === '' || $value === null) {
+            $value = $this->defaultValue;
+        }
+
+        $model->setAttribute($this->attribute, $value);
     }
 }
