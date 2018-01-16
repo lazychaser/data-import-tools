@@ -81,10 +81,6 @@ class ImportService
             }
         }
 
-        catch (\Exception $e) {
-            $this->log->error($this->formatException($e));
-        }
-
         finally {
             $this->dataSource->stop();
         }
