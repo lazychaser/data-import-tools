@@ -14,9 +14,8 @@ class Enum extends BasicAttribute
      *
      * @param $id
      * @param array $options
-     * @param null $dataKey
      */
-    public function __construct($id, array $options, $dataKey = null)
+    public function __construct($id, array $options)
     {
         parent::__construct($id);
 
@@ -38,12 +37,28 @@ class Enum extends BasicAttribute
     /**
      * @param $id
      * @param array $options
-     * @param null $dataKey
      *
      * @return Enum
      */
-    public static function make($id, array $options, $dataKey = null)
+    public static function make($id, array $options)
     {
-        return new static($id, $options, $dataKey);
+        return new static($id, $options);
+    }
+
+    /**
+     * @param $name
+     * @param $arguments
+     *
+     * @return static
+     *
+     * @throws \Exception
+     */
+    public static function __callStatic($name, $arguments)
+    {
+        if (count($arguments) < 1) {
+            throw new \Exception("Not enough arguments.");
+        }
+
+        return new static($name, $arguments[0]);
     }
 }
