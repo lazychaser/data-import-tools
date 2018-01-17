@@ -2,9 +2,10 @@
 
 namespace Lazychaser\DataImportTools\Scheme;
 
-use Lazychaser\DataImportTools\BaseProvider;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Lazychaser\DataImportTools\BaseProvider;
+use Lazychaser\DataImportTools\Helpers;
 
 abstract class BaseRelation extends AbstractAttribute
 {
@@ -80,13 +81,18 @@ abstract class BaseRelation extends AbstractAttribute
      */
     protected function relation(Model $model, $expectedClass)
     {
-        $relation = $model->{$this->id}();
+        return Helpers::relation($model, $this->id, $expectedClass);
+    }
 
-        if ( ! is_a($relation, $expectedClass)) {
-            throw new \RuntimeException("The relation [{$this->id}] is not an instance of [{$expectedClass}].");
+    public static function __callStatic($name, $arguments)
+    {
+        if (count($arguments) < 1) {
+            throw new \Exception("Not enough arguments.");
         }
 
-        return $relation;
+        $dataKey = count($arguments) > 1 ? $arguments[1] : null;
+
+        return new static($name, $arguments[0], $dataKey);
     }
 
 }

@@ -4,6 +4,7 @@ namespace Lazychaser\DataImportTools\Scheme\Helpers;
 
 use Lazychaser\DataImportTools\Scheme\BelongsTo;
 use Lazychaser\DataImportTools\Scheme\BelongsToMany;
+use Lazychaser\DataImportTools\Scheme\HasMany;
 
 /**
  * Class Relation
@@ -24,13 +25,26 @@ class Relation
     ];
 
     /**
+     * @param $id
+     * @param $dataMapper
+     * @param $primaryKey
+     * @param null $dataKey
+     *
+     * @return HasMany
+     */
+    public static function hasMany($id, $dataMapper, $primaryKey, $dataKey = null)
+    {
+        return new HasMany($id, $dataMapper, $primaryKey, $dataKey);
+    }
+
+    /**
      * @inheritDoc
      */
     public static function __callStatic($name, $arguments)
     {
-        $attribute = count($arguments) > 2 ? $arguments[2] : null;
+        $dataKey = count($arguments) > 2 ? $arguments[2] : null;
 
-        return new self::$types[$name]($arguments[0], $arguments[1], $attribute);
+        return new self::$types[$name]($arguments[0], $arguments[1], $dataKey);
     }
 
 }

@@ -28,11 +28,11 @@ abstract class AbstractAttribute implements Attribute
     }
 
     /**
-     * @param $data
+     * @param array $data
      *
      * @return mixed
      */
-    public function value($data)
+    public function value(array $data)
     {
         $key = $this->dataKey ?: $this->id;
 

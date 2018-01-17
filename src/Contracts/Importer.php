@@ -9,11 +9,11 @@ interface Importer
     /**
      * Import single data item.
      *
-     * @param array $data
+     * @param \Illuminate\Support\Collection $data
      *
      * @return \Illuminate\Database\Eloquent\Model|false
      */
-    public function import(array $data);
+    public function import(Collection $data);
 
     /**
      * Indicate that batch import has started.

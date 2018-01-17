@@ -2,6 +2,8 @@
 
 namespace Lazychaser\DataImportTools;
 
+use Illuminate\Database\Eloquent\Model;
+
 class Helpers
 {
     /**
@@ -41,5 +43,23 @@ class Helpers
     public static function isPercents($value)
     {
         return preg_match('/^\d+\s*%$/', $value);
+    }
+
+    /**
+     * @param Model $model
+     * @param $id
+     * @param $expectedClass
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\Relation
+     */
+    public static function relation(Model $model, $id, $expectedClass)
+    {
+        $relation = $model->{$id}();
+
+        if ( ! is_a($relation, $expectedClass)) {
+            throw new \RuntimeException("The relation [{$id}] is not an instance of [{$expectedClass}].");
+        }
+
+        return $relation;
     }
 }

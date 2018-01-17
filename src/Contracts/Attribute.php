@@ -21,7 +21,7 @@ interface Attribute {
      *
      * @return mixed
      */
-    public function value($data);
+    public function value(array $data);
 
     /**
      * @param $value
