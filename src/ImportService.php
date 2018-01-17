@@ -2,6 +2,7 @@
 
 namespace Lazychaser\DataImportTools;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Lazychaser\DataImportTools\Contracts\DataSource as DataSourceContract;
 use Lazychaser\DataImportTools\Contracts\Importer as ImporterContract;
@@ -173,7 +174,7 @@ class ImportService
     {
         $text = 'Validation failed for ['.$e->getModelId().']:'.PHP_EOL;
 
-        $text .= implode(PHP_EOL, $e->errors());
+        $text .= implode(PHP_EOL, Arr::flatten($e->errors()));
 
         return $text;
     }
