@@ -32,6 +32,11 @@ class Importer implements ImporterContact
     protected $mode;
 
     /**
+     * @var string
+     */
+    protected $primaryKey;
+
+    /**
      * @param \Lazychaser\DataImportTools\BaseProvider $provider
      * @param null $attributes
      * @param int $mode
@@ -52,9 +57,11 @@ class Importer implements ImporterContact
      *
      * @return string
      */
-    protected function primaryKey()
+    protected function primaryKey($data)
     {
-        return $this->provider->primaryKey();
+        $pk = $this->primaryKey ?: $this->provider->primaryKey();
+
+        return $this->provider->normalizeKey(Arr::get($data, $pk));
     }
 
     /**
@@ -194,15 +201,14 @@ class Importer implements ImporterContact
     public function normalize(array $data)
     {
         $result = [];
-        
+
         $scheme = $this->getScheme();
 
         foreach ($scheme as $id => $attribute) {
             $result[$id] = $attribute->value($data);
         }
 
-        $key = Arr::get($data, $this->primaryKey());
-        $result[$this->provider->primaryKey()] = $this->provider->normalizeKey($key);
+        $result[$this->provider->primaryKey()] = $this->primaryKey($data);
 
         return $result;
     }

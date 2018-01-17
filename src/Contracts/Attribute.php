@@ -17,7 +17,7 @@ interface Attribute {
     public function preload(Collection $items);
 
     /**
-     * @param array $value
+     * @param array $data
      *
      * @return mixed
      */
