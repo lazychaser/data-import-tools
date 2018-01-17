@@ -17,11 +17,11 @@ interface Attribute {
     public function preload(Collection $items);
 
     /**
-     * @param mixed $value
+     * @param array $value
      *
      * @return mixed
      */
-    public function normalize($value);
+    public function value($data);
 
     /**
      * @param $value

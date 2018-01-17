@@ -14,11 +14,11 @@ class Enum extends BasicAttribute
      *
      * @param $id
      * @param array $options
-     * @param null $attribute
+     * @param null $dataKey
      */
-    public function __construct($id, array $options, $attribute = null)
+    public function __construct($id, array $options, $dataKey = null)
     {
-        parent::__construct($id, $attribute);
+        parent::__construct($id, $dataKey);
 
         $this->options = $options;
     }
@@ -38,12 +38,12 @@ class Enum extends BasicAttribute
     /**
      * @param $id
      * @param array $options
-     * @param null $attribute
+     * @param null $dataKey
      *
      * @return Enum
      */
-    public static function make($id, array $options, $attribute = null)
+    public static function make($id, array $options, $dataKey = null)
     {
-        return new static($id, $options, $attribute);
+        return new static($id, $options, $dataKey);
     }
 }

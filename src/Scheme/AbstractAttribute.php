@@ -2,6 +2,7 @@
 
 namespace Lazychaser\DataImportTools\Scheme;
 
+use Illuminate\Support\Arr;
 use Lazychaser\DataImportTools\Contracts\Attribute;
 
 abstract class AbstractAttribute implements Attribute
@@ -12,20 +13,30 @@ abstract class AbstractAttribute implements Attribute
     protected $id;
 
     /**
-     * Attribute on model.
-     *
      * @var string
      */
-    protected $attribute;
+    protected $dataKey;
 
     /**
      * @param $id
-     * @param null $attribute
+     * @param null $dataKey
      */
-    public function __construct($id, $attribute = null)
+    public function __construct($id, $dataKey = null)
     {
         $this->id = $id;
-        $this->attribute = $attribute ?: $id;
+        $this->dataKey = $dataKey;
+    }
+
+    /**
+     * @param $data
+     *
+     * @return mixed
+     */
+    public function value($data)
+    {
+        $key = $this->dataKey ?: $this->id;
+
+        return $this->normalize(Arr::get($data, $key));
     }
 
     /**

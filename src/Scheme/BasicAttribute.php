@@ -3,6 +3,7 @@
 namespace Lazychaser\DataImportTools\Scheme;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 class BasicAttribute extends AbstractAttribute
@@ -63,6 +64,6 @@ class BasicAttribute extends AbstractAttribute
             $value = $this->defaultValue;
         }
 
-        $model->setAttribute($this->attribute, $value);
+        $model->setAttribute($this->id, $value);
     }
 }

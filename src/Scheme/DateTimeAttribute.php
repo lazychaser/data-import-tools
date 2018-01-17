@@ -16,11 +16,11 @@ class DateTimeAttribute extends BasicAttribute
      *
      * @param $id
      * @param string $format
-     * @param string $attribute
+     * @param string $dataKey
      */
-    public function __construct($id, $format, $attribute = null)
+    public function __construct($id, $format, $dataKey = null)
     {
-        parent::__construct($id, $attribute);
+        parent::__construct($id, $dataKey);
 
         $this->format = $format;
     }

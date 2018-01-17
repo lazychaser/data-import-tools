@@ -21,11 +21,11 @@ abstract class BaseRelation extends AbstractAttribute
     /**
      * @param string $id
      * @param string|\Lazychaser\DataImportTools\BaseProvider $provider
-     * @param null|string $attribute
+     * @param null|string $dataKey
      */
-    public function __construct($id, $provider, $attribute = null)
+    public function __construct($id, $provider, $dataKey = null)
     {
-        parent::__construct($id, $attribute);
+        parent::__construct($id, $dataKey);
 
         $this->provider = $provider;
     }
@@ -33,13 +33,13 @@ abstract class BaseRelation extends AbstractAttribute
     /**
      * @param $id
      * @param $provider
-     * @param null $attribute
+     * @param null $dataKey
      *
      * @return static
      */
-    public static function make($id, $provider, $attribute = null)
+    public static function make($id, $provider, $dataKey = null)
     {
-        return new static($id, $provider, $attribute);
+        return new static($id, $provider, $dataKey);
     }
 
     /**
@@ -80,10 +80,10 @@ abstract class BaseRelation extends AbstractAttribute
      */
     protected function relation(Model $model, $expectedClass)
     {
-        $relation = $model->{$this->attribute}();
+        $relation = $model->{$this->id}();
 
         if ( ! is_a($relation, $expectedClass)) {
-            throw new \RuntimeException("The relation [{$this->attribute}] is not an instance of [{$expectedClass}].");
+            throw new \RuntimeException("The relation [{$this->id}] is not an instance of [{$expectedClass}].");
         }
 
         return $relation;

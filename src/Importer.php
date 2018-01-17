@@ -109,9 +109,9 @@ class Importer implements ImporterContact
             return $model;
         }
 
-        foreach ($this->attributes as $attr) {
-            if ($scheme->has($attr) && array_key_exists($attr, $data)) {
-                $scheme->get($attr)->setOn($data, $model);
+        foreach ($this->attributes as $id) {
+            if ($scheme->has($id) && array_key_exists($id, $data)) {
+                $scheme->get($id)->setValueOnModel($data[$id], $model);
             }
         }
 
@@ -193,21 +193,18 @@ class Importer implements ImporterContact
      */
     public function normalize(array $data)
     {
+        $result = [];
+        
         $scheme = $this->getScheme();
 
-        foreach ($data as $key => $value) {
-            if ($scheme->has($key)) {
-                $data[$key] = $scheme->get($key)->normalize($value);
-            }
+        foreach ($scheme as $id => $attribute) {
+            $result[$id] = $attribute->value($data);
         }
 
-        $pk = $this->primaryKey();
+        $key = Arr::get($data, $this->primaryKey());
+        $result[$this->provider->primaryKey()] = $this->provider->normalizeKey($key);
 
-        if (array_key_exists($pk, $data)) {
-            $data[$pk] = $this->provider->normalizeKey($data[$pk]);
-        }
-
-        return $data;
+        return $result;
     }
 
     /**
@@ -277,7 +274,7 @@ class Importer implements ImporterContact
      */
     protected function itemKey(array $data)
     {
-        return Arr::get($data, $this->primaryKey());
+        return Arr::get($data, $this->provider->primaryKey());
     }
 
     /**
