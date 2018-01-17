@@ -73,7 +73,7 @@ class HasMany extends AbstractAttribute
         /**
          * @var \Illuminate\Database\Eloquent\Relations\HasMany $relation
          */
-        $relation = Helpers::relation($model, $this->id, HasMany::class);
+        $relation = Helpers::relation($model, $this->id, 'Illuminate\Database\Eloquent\Relations\HasMany');
 
         $currentItems = $model->wasRecentlyCreated
             ? collect()
