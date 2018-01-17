@@ -32,11 +32,10 @@ class Scalar extends BasicAttribute
      *
      * @param $id
      * @param string $type
-     * @param null $dataKey
      */
-    public function __construct($id, $type = 'string', $dataKey = null)
+    public function __construct($id, $type = 'string')
     {
-        parent::__construct($id, $dataKey);
+        parent::__construct($id);
 
         $this->type = $type;
     }
@@ -83,8 +82,6 @@ class Scalar extends BasicAttribute
             throw new \InvalidArgumentException('The id of the attribute is not specified.');
         }
 
-        $dataKey = isset($arguments[1]) ? $arguments[1] : null;
-
-        return new self($arguments[0], $type, $dataKey);
+        return new self($arguments[0], $type);
     }
 }

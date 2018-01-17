@@ -24,11 +24,11 @@ class HasMany extends AbstractAttribute
      *
      * @param $id
      * @param string|DataMapper $dataMapper
-     * @param null $dataKey
+     * @param $primaryKey
      */
-    public function __construct($id, $dataMapper, $primaryKey, $dataKey = null)
+    public function __construct($id, $dataMapper, $primaryKey)
     {
-        parent::__construct($id, $dataKey);
+        parent::__construct($id);
 
         $this->dataMapper = $dataMapper;
         $this->primaryKey = $primaryKey;
@@ -38,13 +38,12 @@ class HasMany extends AbstractAttribute
      * @param $id
      * @param $dataMapper
      * @param $primaryKey
-     * @param null $dataKey
      *
      * @return HasMany
      */
-    public static function make($id, $dataMapper, $primaryKey, $dataKey = null)
+    public static function make($id, $dataMapper, $primaryKey)
     {
-        return new self($id, $dataMapper, $primaryKey, $dataKey);
+        return new self($id, $dataMapper, $primaryKey);
     }
 
     /**
@@ -116,15 +115,21 @@ class HasMany extends AbstractAttribute
         return $this->dataMapper;
     }
 
+    /**
+     * @param $name
+     * @param $arguments
+     *
+     * @return static
+     *
+     * @throws \Exception
+     */
     public static function __callStatic($name, $arguments)
     {
         if (count($arguments) < 2) {
             throw new \Exception("Not enough arguments.");
         }
 
-        $dataKey = count($arguments) > 2 ? $arguments[2] : null;
-
-        return new self($name, $arguments[0], $arguments[1], $dataKey);
+        return new static($name, $arguments[0], $arguments[1]);
     }
 
 }

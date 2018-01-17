@@ -22,11 +22,10 @@ abstract class BaseRelation extends AbstractAttribute
     /**
      * @param string $id
      * @param string|\Lazychaser\DataImportTools\BaseProvider $provider
-     * @param null|string $dataKey
      */
-    public function __construct($id, $provider, $dataKey = null)
+    public function __construct($id, $provider)
     {
-        parent::__construct($id, $dataKey);
+        parent::__construct($id);
 
         $this->provider = $provider;
     }
@@ -34,13 +33,12 @@ abstract class BaseRelation extends AbstractAttribute
     /**
      * @param $id
      * @param $provider
-     * @param null $dataKey
      *
      * @return static
      */
-    public static function make($id, $provider, $dataKey = null)
+    public static function make($id, $provider)
     {
-        return new static($id, $provider, $dataKey);
+        return new static($id, $provider);
     }
 
     /**
@@ -84,15 +82,21 @@ abstract class BaseRelation extends AbstractAttribute
         return Helpers::relation($model, $this->id, $expectedClass);
     }
 
+    /**
+     * @param $name
+     * @param $arguments
+     *
+     * @return static
+     *
+     * @throws \Exception
+     */
     public static function __callStatic($name, $arguments)
     {
         if (count($arguments) < 1) {
             throw new \Exception("Not enough arguments.");
         }
 
-        $dataKey = count($arguments) > 1 ? $arguments[1] : null;
-
-        return new static($name, $arguments[0], $dataKey);
+        return new static($name, $arguments[0]);
     }
 
 }

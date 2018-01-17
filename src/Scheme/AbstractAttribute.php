@@ -19,12 +19,10 @@ abstract class AbstractAttribute implements Attribute
 
     /**
      * @param $id
-     * @param null $dataKey
      */
-    public function __construct($id, $dataKey = null)
+    public function __construct($id)
     {
         $this->id = $id;
-        $this->dataKey = $dataKey;
     }
 
     /**
@@ -47,6 +45,18 @@ abstract class AbstractAttribute implements Attribute
     public function normalize($value)
     {
         return $value;
+    }
+
+    /**
+     * @param $value
+     *
+     * @return $this
+     */
+    public function dataKey($value)
+    {
+        $this->dataKey = $value;
+
+        return $this;
     }
 
     /**

@@ -16,11 +16,10 @@ class DateTimeAttribute extends BasicAttribute
      *
      * @param $id
      * @param string $format
-     * @param string $dataKey
      */
-    public function __construct($id, $format, $dataKey = null)
+    public function __construct($id, $format)
     {
-        parent::__construct($id, $dataKey);
+        parent::__construct($id);
 
         $this->format = $format;
     }
@@ -37,4 +36,20 @@ class DateTimeAttribute extends BasicAttribute
             : Carbon::createFromFormat($this->format, $value);
     }
 
+    /**
+     * @param $name
+     * @param $arguments
+     *
+     * @return static
+     *
+     * @throws \Exception
+     */
+    public static function __callStatic($name, $arguments)
+    {
+        if (count($arguments) < 1) {
+            throw new \Exception("Not enough arguments.");
+        }
+
+        return new static($name, $arguments[0]);
+    }
 }

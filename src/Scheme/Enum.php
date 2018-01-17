@@ -18,7 +18,7 @@ class Enum extends BasicAttribute
      */
     public function __construct($id, array $options, $dataKey = null)
     {
-        parent::__construct($id, $dataKey);
+        parent::__construct($id);
 
         $this->options = $options;
     }
