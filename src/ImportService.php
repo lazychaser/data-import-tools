@@ -173,7 +173,7 @@ class ImportService
     {
         $text = 'Validation failed for ['.$e->getModelId().']:'.PHP_EOL;
 
-        $text .= implode(PHP_EOL, $e->errors()->all());
+        $text .= implode(PHP_EOL, $e->errors());
 
         return $text;
     }
