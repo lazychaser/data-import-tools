@@ -56,13 +56,13 @@ class Scalar extends BasicAttribute
                 return (bool)$value;
 
             case 'int':
-                return (int)Helpers::parseInt($value);
+                return (int)$value;
 
             case 'float':
-                return (float)Helpers::parseFloat($value);
+                return (float)$value;
 
             case 'number':
-                return Helpers::parseFloat($value);
+                return (float)$value;
 
             default:
                 return $value;

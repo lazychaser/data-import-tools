@@ -44,21 +44,4 @@ class Enum extends BasicAttribute
     {
         return new static($id, $options);
     }
-
-    /**
-     * @param $name
-     * @param $arguments
-     *
-     * @return static
-     *
-     * @throws \Exception
-     */
-    public static function __callStatic($name, $arguments)
-    {
-        if (count($arguments) < 1) {
-            throw new \Exception("Not enough arguments.");
-        }
-
-        return new static($name, $arguments[0]);
-    }
 }

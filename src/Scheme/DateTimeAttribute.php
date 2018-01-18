@@ -37,19 +37,13 @@ class DateTimeAttribute extends BasicAttribute
     }
 
     /**
-     * @param $name
-     * @param $arguments
+     * @param $id
+     * @param $format
      *
      * @return static
-     *
-     * @throws \Exception
      */
-    public static function __callStatic($name, $arguments)
+    public static function make($id, $format)
     {
-        if (count($arguments) < 1) {
-            throw new \Exception("Not enough arguments.");
-        }
-
-        return new static($name, $arguments[0]);
+        return new static($id, $format);
     }
 }

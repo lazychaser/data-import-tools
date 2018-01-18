@@ -114,22 +114,4 @@ class HasMany extends AbstractAttribute
 
         return $this->dataMapper;
     }
-
-    /**
-     * @param $name
-     * @param $arguments
-     *
-     * @return static
-     *
-     * @throws \Exception
-     */
-    public static function __callStatic($name, $arguments)
-    {
-        if (count($arguments) < 2) {
-            throw new \Exception("Not enough arguments.");
-        }
-
-        return new static($name, $arguments[0], $arguments[1]);
-    }
-
 }

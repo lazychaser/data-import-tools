@@ -81,22 +81,4 @@ abstract class BaseRelation extends AbstractAttribute
     {
         return Helpers::relation($model, $this->id, $expectedClass);
     }
-
-    /**
-     * @param $name
-     * @param $arguments
-     *
-     * @return static
-     *
-     * @throws \Exception
-     */
-    public static function __callStatic($name, $arguments)
-    {
-        if (count($arguments) < 1) {
-            throw new \Exception("Not enough arguments.");
-        }
-
-        return new static($name, $arguments[0]);
-    }
-
 }
