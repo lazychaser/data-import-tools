@@ -51,22 +51,7 @@ class Scalar extends BasicAttribute
             return $value;
         }
 
-        switch ($this->type) {
-            case 'bool':
-                return (bool)$value;
-
-            case 'int':
-                return (int)$value;
-
-            case 'float':
-                return (float)$value;
-
-            case 'number':
-                return (float)$value;
-
-            default:
-                return $value;
-        }
+        return $this->cast($value);
     }
 
     /**
@@ -83,5 +68,30 @@ class Scalar extends BasicAttribute
         }
 
         return new self($arguments[0], $type);
+    }
+
+    /**
+     * @param $value
+     *
+     * @return bool|float|int
+     */
+    public function cast($value)
+    {
+        switch ($this->type) {
+            case 'bool':
+                return (bool)$value;
+
+            case 'int':
+                return (int)$value;
+
+            case 'float':
+                return (float)$value;
+
+            case 'number':
+                return (float)$value;
+
+            default:
+                return $value;
+        }
     }
 }
