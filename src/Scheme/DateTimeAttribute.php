@@ -12,6 +12,11 @@ class DateTimeAttribute extends BasicAttribute
     protected $format;
 
     /**
+     * @var string
+     */
+    protected $timezone;
+
+    /**
      * DateTimeAttribute constructor.
      *
      * @param $id
@@ -31,9 +36,31 @@ class DateTimeAttribute extends BasicAttribute
      */
     public function normalize($value)
     {
-        return empty($value)
-            ? null
-            : Carbon::createFromFormat($this->format, $value);
+        if (empty($value)) {
+            return null;
+        }
+
+        $value = Carbon::createFromFormat($this->format, $value, $this->timezone);
+
+        if ($this->timezone &&
+            $this->timezone !== ($currentTimezone = config('app.timezone'))
+        ) {
+            $value->setTimezone($currentTimezone);
+        }
+
+        return $value;
+    }
+
+    /**
+     * @param $value
+     *
+     * @return $this
+     */
+    public function timezone($value)
+    {
+        $this->timezone = $value;
+
+        return $this;
     }
 
     /**
