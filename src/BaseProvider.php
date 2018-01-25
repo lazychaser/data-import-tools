@@ -53,6 +53,11 @@ abstract class BaseProvider
     }
 
     /**
+     * Flush loaded data.
+     */
+    abstract public function flush();
+
+    /**
      * @return \Illuminate\Database\Eloquent\Model
      */
     abstract public function newEmptyModel();

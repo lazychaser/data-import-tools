@@ -71,12 +71,12 @@ class HasMany extends AbstractAttribute
     {
         /**
          * @var \Illuminate\Database\Eloquent\Relations\HasMany $relation
+         * @var \Illuminate\Database\Eloquent\Collection $currentItems
          */
+
         $relation = Helpers::relation($model, $this->id, 'Illuminate\Database\Eloquent\Relations\HasMany');
 
-        $currentItems = $model->wasRecentlyCreated
-            ? collect()
-            : $model->getRelationValue($this->id)->keyBy($this->primaryKey);
+        $currentItems = $model->getRelationValue($this->id)->keyBy($this->primaryKey);
 
         foreach ($value as $data) {
             if ( ! $instance = $currentItems->pull($data[$this->primaryKey])) {

@@ -20,6 +20,11 @@ abstract class BaseModelProvider extends BaseProvider
      */
     public $eager = [];
 
+    public function flush()
+    {
+        $this->loaded = [];
+    }
+
     /**
      * Load a model from database by primary key if it is not already loaded.
      *

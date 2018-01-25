@@ -15,6 +15,11 @@ abstract class NestedSetProvider extends BaseProvider
      */
     protected $preloaded;
 
+    public function flush()
+    {
+        $this->preloaded = null;
+    }
+
     /**
      * @param array $key
      *
