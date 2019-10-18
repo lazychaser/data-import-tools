@@ -35,7 +35,7 @@ abstract class NestedSetProvider extends BaseProvider
 
         foreach ($key as $entry) {
             if ($this->slugKey) {
-                $entry = str_slug($entry);
+                $entry = Str::slug($entry);
             }
 
             if (empty($entry) || ! $data->has($entry)) {

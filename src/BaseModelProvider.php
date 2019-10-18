@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Str;
 use Lazychaser\DataImportTools\BaseProvider;
 
 abstract class BaseModelProvider extends BaseProvider
@@ -171,7 +172,7 @@ abstract class BaseModelProvider extends BaseProvider
      */
     public function hashKey($key)
     {
-        return $this->slugKey ? str_slug($key) : $key;
+        return $this->slugKey ? Str::slug($key) : $key;
     }
 
     /**

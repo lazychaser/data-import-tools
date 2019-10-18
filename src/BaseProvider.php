@@ -4,6 +4,7 @@ namespace Lazychaser\DataImportTools;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Str;
 
 abstract class BaseProvider
 {
@@ -205,7 +206,7 @@ abstract class BaseProvider
         }
 
         if ($this->slugKey) {
-            $key = str_slug($key);
+            $key = Str::slug($key);
         }
 
         $model->setAttribute($this->primaryKey(), $key);
