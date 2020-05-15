@@ -144,10 +144,6 @@ class ImportService
             return;
         }
 
-        $this->log = app('log')->getMonolog();
-
-        return;
-
         $this->log = new Logger('importer', [ new NullHandler() ]);
     }
 

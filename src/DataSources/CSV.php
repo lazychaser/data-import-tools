@@ -2,6 +2,7 @@
 
 namespace Lazychaser\DataImportTools\DataSources;
 
+use Illuminate\Support\Arr;
 use Lazychaser\DataImportTools\Contracts\DataSource;
 use Lazychaser\DataImportTools\Exceptions\DataSourceException;
 use Illuminate\Support\Collection;
@@ -60,7 +61,7 @@ class CSV implements DataSource
      */
     public function start()
     {
-        if ( ! $this->f = fopen($this->filename, 'r')) {
+        if (!$this->f = fopen($this->filename, 'r')) {
             throw new DataSourceException('Could not read the file.');
         }
 
@@ -76,7 +77,7 @@ class CSV implements DataSource
      */
     public function read($limit = 100)
     {
-        if ( ! $this->f) {
+        if (!$this->f) {
             throw new DataSourceException('Please start data source reading first.');
         }
 
@@ -114,7 +115,7 @@ class CSV implements DataSource
             throw new DataSourceException('Could not read CSV header.');
         }
 
-        $header = [ ];
+        $header = [];
 
         foreach ($row as $index => $value) {
             if ($col = $this->parseHeaderCell($value, $index)) {
@@ -162,12 +163,11 @@ class CSV implements DataSource
     {
         $attributes = $this->getAvailableAttributes();
 
-        $row = array_combine($attributes,
-                             array_pad([], count($attributes), null));
+        $row = array_combine($attributes, array_pad([], count($attributes), null));
 
         foreach ($this->header as $col) {
             if (null !== $value = $this->value($data[$col->index])) {
-                array_set($row, $col->path, $value);
+                Arr::set($row, $col->path, $value);
             }
         }
 
@@ -192,7 +192,7 @@ class CSV implements DataSource
      */
     protected function parseHeaderCell($value, $index)
     {
-        if ( ! $value = $this->value($value)) {
+        if (!$value = $this->value($value)) {
             return false;
         }
 

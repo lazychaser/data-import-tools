@@ -29,10 +29,8 @@ abstract class Importer extends DataMapper implements ImporterContact
      * @param null $attributes
      * @param int $mode
      */
-    public function __construct(BaseProvider $provider,
-                                $attributes = null,
-                                $mode = BaseProvider::READ_CREATE
-    ) {
+    public function __construct(BaseProvider $provider, $attributes = null, $mode = BaseProvider::READ_CREATE)
+    {
         $this->provider = $provider;
         $this->attributes = $attributes;
         $this->mode = $mode;
@@ -57,7 +55,7 @@ abstract class Importer extends DataMapper implements ImporterContact
      */
     public function import(Collection $data)
     {
-        if ( ! $key = $this->itemKey($data)) {
+        if (!$key = $this->itemKey($data)) {
             return false;
         }
 
@@ -65,11 +63,11 @@ abstract class Importer extends DataMapper implements ImporterContact
             $this->validate($key, $data);
         }
 
-        if ( ! $model = $this->provider->fetch($key, $this->mode)) {
+        if (!$model = $this->provider->fetch($key, $this->mode)) {
             return false;
         }
 
-        if ( ! $this->save($model, $data)) {
+        if (!$this->save($model, $data)) {
             return false;
         }
 
@@ -86,7 +84,7 @@ abstract class Importer extends DataMapper implements ImporterContact
     {
         $this->fill($model, $data);
 
-        if ($model->exists && ! $model->isDirty()) {
+        if ($model->exists && !$model->isDirty()) {
             return false;
         }
 
@@ -161,8 +159,8 @@ abstract class Importer extends DataMapper implements ImporterContact
      */
     protected function itemsKeys(Collection $items)
     {
-        return $items
-            ->map(function ($data) { return $this->itemKey($data); })
-            ->all();
+        return $items->map(function ($data) {
+            return $this->itemKey($data);
+        })->all();
     }
 }
