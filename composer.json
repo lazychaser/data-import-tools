@@ -3,10 +3,10 @@
     "description": "Tools for importing data from different data sources",
     "type": "library",
     "require": {
-        "illuminate/support": "~5.2||^6.0",
-        "illuminate/database": "~5.2||^6.0",
-        "illuminate/validation": "~5.2||^6.0",
-        "monolog/monolog": "^1.23"
+        "illuminate/support": ">=5.2",
+        "illuminate/database": ">=5.2",
+        "illuminate/validation": ">=5.2",
+        "monolog/monolog": ">=1.23"
     },
     "license": "MIT",
     "authors": [
