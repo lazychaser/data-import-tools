@@ -71,7 +71,7 @@ class CSV implements DataSource
     /**
      * @param int $limit
      *
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection|false
      *
      * @throws DataSourceException
      */
@@ -87,7 +87,7 @@ class CSV implements DataSource
             $data->push($this->convertRow($row));
         }
 
-        return $data;
+        return $data->isEmpty() ? false : $data;
     }
 
     /**

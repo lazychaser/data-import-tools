@@ -120,7 +120,7 @@ class ImportService
             }
 
             catch (\Exception $e) {
-                $this->log->addError($this->formatException($e));
+                $this->log->error($this->formatException($e));
 
                 $result->errored();
             }
