@@ -85,7 +85,9 @@ class HasMany extends AbstractAttribute
 
             $this->getDataMapper()->fill($instance, $data);
 
-            $relation->save($instance);
+            $instance->setAttribute($relation->getForeignKeyName(), $relation->getParentKey());
+
+            if (!$instance->exists || $instance->isDirty()) $instance->save();
         }
 
         foreach ($currentItems as $item) {
