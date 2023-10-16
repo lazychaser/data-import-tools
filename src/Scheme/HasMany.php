@@ -90,9 +90,7 @@ class HasMany extends AbstractAttribute
             if (!$instance->exists || $instance->isDirty()) $instance->save();
         }
 
-        foreach ($currentItems as $item) {
-            $item->delete();
-        }
+        $this->deleteMissing($currentItems);
     }
 
     /**
@@ -115,5 +113,15 @@ class HasMany extends AbstractAttribute
         }
 
         return $this->dataMapper;
+    }
+
+    /**
+     * @param \Illuminate\Database\Eloquent\Collection $currentItems
+     */
+    protected function deleteMissing(\Illuminate\Database\Eloquent\Collection $currentItems)
+    {
+        foreach ($currentItems as $item) {
+            $item->delete();
+        }
     }
 }
