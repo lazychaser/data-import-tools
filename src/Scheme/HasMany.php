@@ -74,7 +74,10 @@ class HasMany extends AbstractAttribute
          * @var \Illuminate\Database\Eloquent\Collection $currentItems
          */
 
-        $relation = Helpers::relation($model, $this->id, 'Illuminate\Database\Eloquent\Relations\HasMany');
+        $relation = Helpers::relation($model, $this->id, [
+            'Illuminate\Database\Eloquent\Relations\HasMany',
+            'Illuminate\Database\Eloquent\Relations\MorphMany',
+        ]);
 
         $currentItems = $model->getRelationValue($this->id)->keyBy($this->primaryKey);
 
@@ -85,9 +88,7 @@ class HasMany extends AbstractAttribute
 
             $this->getDataMapper()->fill($instance, $data);
 
-            $instance->setAttribute($relation->getForeignKeyName(), $relation->getParentKey());
-
-            if (!$instance->exists || $instance->isDirty()) $instance->save();
+            if (!$instance->exists || $instance->isDirty()) $relation->save($instance);
         }
 
         $this->deleteMissing($currentItems);

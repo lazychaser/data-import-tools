@@ -3,6 +3,7 @@
 namespace Lazychaser\DataImportTools;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 class Helpers
 {
@@ -56,10 +57,12 @@ class Helpers
     {
         $relation = $model->{$id}();
 
-        if ( ! is_a($relation, $expectedClass)) {
-            throw new \RuntimeException("The relation [{$id}] is not an instance of [{$expectedClass}].");
+        foreach (Arr::wrap($expectedClass) as $class) {
+            if (is_a($relation, $class)) return $relation;
         }
 
-        return $relation;
+        if (is_array($expectedClass)) $expectedClass = implode(', ', $expectedClass);
+
+        throw new \RuntimeException("The relation [$id] is not an instance of any of [$expectedClass].");
     }
 }
